@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Ramsay</string>
+    <string name="search_restaurant">Search restaurant</string>
 </resources>
