@@ -50,7 +50,9 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
 
 
     override fun openDetails(position: Int, item: View?) {
-        Toast.makeText(context, "ItemClicked", Toast.LENGTH_SHORT).show()
+        val restaurantMenuFragment = RestaurantMenuFragment()
+        fragmentManager?.beginTransaction()?.add(R.id.frame, restaurantMenuFragment)
+            ?.addToBackStack(null)?.commit()
     }
 
     private fun setAdapter() {
