@@ -35,20 +35,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize" />
 
-            <androidx.cardview.widget.CardView
+            <com.example.ramsay.ui.RestaurantDetailsView
                 android:id="@+id/restDescriptionCard"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="@dimen/margin_24dp"
                 android:layout_marginTop="100dp"
                 android:layout_marginEnd="@dimen/margin_24dp"
                 android:layout_marginBottom="48dp"
-                android:visibility="visible"
                 app:cardCornerRadius="6dp"
-                app:cardElevation="10dp">
+                app:cardElevation="10dp" />
 
-            </androidx.cardview.widget.CardView>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

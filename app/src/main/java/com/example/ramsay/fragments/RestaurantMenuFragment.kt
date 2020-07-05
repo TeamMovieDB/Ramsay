@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ramsay.R
 import com.example.ramsay.model.Dish
+import com.example.ramsay.model.Restaurant
 import com.example.ramsay.ui.MenuAdapter
+import com.example.ramsay.ui.RestaurantDetailsView
 import com.example.ramsay.utils.AppBarStateChangedListener
 import com.example.ramsay.utils.State
 import com.google.android.material.appbar.AppBarLayout
@@ -23,7 +24,7 @@ class RestaurantMenuFragment : Fragment(),
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var appbarLayout: AppBarLayout
-    private lateinit var restDescriptionCard: CardView
+    private lateinit var restDescriptionCard: RestaurantDetailsView
     private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
 
     private val menuAdapter: MenuAdapter by lazy {
@@ -44,6 +45,7 @@ class RestaurantMenuFragment : Fragment(),
         setAdapter()
         val menu = getMenu()
         menuAdapter.setMenu(menu)
+        setRestaurantData()
     }
 
     override fun itemClick(position: Int, item: Dish) {
@@ -91,5 +93,16 @@ class RestaurantMenuFragment : Fragment(),
             menu.add(dish)
         }
         return menu
+    }
+
+    private fun setRestaurantData() {
+        val restaurant =
+            Restaurant(
+                12, "Bahandi",
+                "A Hunter is one who travels the world doing all sorts of dangerous tasks. ",
+                "Almaty, Tole bi street, 50",
+                "+77077881506", "lol", "98%", "25min", "1000T"
+            )
+        restDescriptionCard.setData(restaurant)
     }
 }
