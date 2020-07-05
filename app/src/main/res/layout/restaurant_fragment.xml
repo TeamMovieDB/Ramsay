@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_layout"
+            android:id="@+id/appbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -22,12 +22,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:contentScrim="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-                app:title="@string/app_name">
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
-                <ImageView
+                <com.example.ramsay.ui.CollapsingToolbarBottom
+                    android:id="@+id/collapsingToolbarBottom"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp" />
+                    android:layout_height="match_parent"/>
 
                 <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
@@ -35,6 +35,7 @@
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
