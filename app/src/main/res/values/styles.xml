@@ -7,4 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="collapsedToolbarStyle">
+        <item name="android:fontFamily">@font/yellow_tail</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+    <style name="expandedToolbarStyle">
+        <item name="android:fontFamily">@font/yellow_tail</item>
+        <item name="android:textSize">64sp</item>
+    </style>
 </resources>

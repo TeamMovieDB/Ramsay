@@ -2,145 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <com.example.ramsay.ui.RestaurantView
+        android:id="@+id/restaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_medium"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="@dimen/margin_medium"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clMain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/ivLike"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="@dimen/margin_64dp"
-                android:layout_marginTop="@dimen/margin_8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clPoster"
-                app:srcCompat="@drawable/ic_like" />
-
-            <ImageView
-                android:id="@+id/ivCoin"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:layout_marginEnd="64dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clPoster"
-                app:srcCompat="@drawable/ic_coin" />
-
-            <ImageView
-                android:id="@+id/ivTime"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/margin_8dp"
-                app:layout_constraintEnd_toStartOf="@+id/ivCoin"
-                app:layout_constraintStart_toEndOf="@+id/ivLike"
-                app:layout_constraintTop_toBottomOf="@+id/clPoster"
-                app:srcCompat="@drawable/ic_clock" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clPoster"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivRestaurant"
-                    android:layout_width="match_parent"
-                    android:layout_height="189dp"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/burger"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#FFAE1A"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivRestaurant"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/ivRestaurant">
-
-                    <TextView
-                        android:id="@+id/tvRestaurantName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_medium"
-                        android:paddingLeft="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingRight="8dp"
-                        android:paddingBottom="4dp"
-                        android:textColor="@color/white"
-                        android:textSize="28dp"
-                        tools:text="Bahandi" />
-                </androidx.cardview.widget.CardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tvLikeCounter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_6dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/ivLike"
-                app:layout_constraintStart_toStartOf="@+id/ivLike"
-                app:layout_constraintTop_toBottomOf="@+id/ivLike"
-                tools:text="99%" />
-
-            <TextView
-                android:id="@+id/tvTimeCounter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_6dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/ivTime"
-                app:layout_constraintStart_toStartOf="@+id/ivTime"
-                app:layout_constraintTop_toBottomOf="@+id/ivTime"
-                tools:text="40min" />
-
-            <TextView
-                android:id="@+id/tvCostCounter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_6dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/ivCoin"
-                app:layout_constraintStart_toStartOf="@+id/ivCoin"
-                app:layout_constraintTop_toBottomOf="@+id/ivCoin"
-                tools:text="~1000T" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

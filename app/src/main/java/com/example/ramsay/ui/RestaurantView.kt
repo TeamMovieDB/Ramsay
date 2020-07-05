@@ -10,7 +10,7 @@ import com.example.ramsay.R
 import com.example.ramsay.model.Restaurant
 import com.squareup.picasso.Picasso
 
-class RestaurantItem : ConstraintLayout {
+class RestaurantView : ConstraintLayout {
     private lateinit var ivLike: ImageView
     private lateinit var ivTime: ImageView
     private lateinit var ivCoin: ImageView
@@ -19,7 +19,6 @@ class RestaurantItem : ConstraintLayout {
     private lateinit var tvTimeCounter: TextView
     private lateinit var tvCostCounter: TextView
     private lateinit var tvRestaurantName: TextView
-    private lateinit var llCategory: LinearLayout
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -30,7 +29,7 @@ class RestaurantItem : ConstraintLayout {
     }
 
     private fun init(context: Context) {
-        LinearLayout.inflate(context, R.layout.restaurant_item, this)
+        LinearLayout.inflate(context, R.layout.restaurant, this)
         ivLike = findViewById(R.id.ivLike)
         ivTime = findViewById(R.id.ivTime)
         ivCoin = findViewById(R.id.ivCoin)
@@ -41,31 +40,31 @@ class RestaurantItem : ConstraintLayout {
         tvRestaurantName = findViewById(R.id.tvRestaurantName)
     }
 
-    fun setRestaurantData(restaurant: Restaurant) {
-        setLikeCount(restaurant.likeCount)
-        setTimeCount(restaurant.timeCount)
-        setCostCount(restaurant.averageCost)
-        setRestaurantImage(restaurant.imagePath)
-        setRestaurantName(restaurant.name)
+    fun setRestaurantData(restaurant: Restaurant?) {
+        setLikeCount(restaurant?.likeCount)
+        setTimeCount(restaurant?.timeCount)
+        setCostCount(restaurant?.averageCost)
+        setRestaurantImage(restaurant?.imagePath)
+        setRestaurantName(restaurant?.name)
     }
 
-    private fun setLikeCount(likeCount: String) {
+    private fun setLikeCount(likeCount: String?) {
         tvLikeCounter.text = likeCount
     }
 
-    private fun setTimeCount(timeCount: String) {
+    private fun setTimeCount(timeCount: String?) {
         tvTimeCounter.text = timeCount
     }
 
-    private fun setCostCount(costCount: String) {
+    private fun setCostCount(costCount: String?) {
         tvCostCounter.text = costCount
     }
 
-    private fun setRestaurantImage(imagePath: String) {
+    private fun setRestaurantImage(imagePath: String?) {
         Picasso.get().load(imagePath).into(ivRestaurant)
     }
 
-    private fun setRestaurantName(name: String) {
+    private fun setRestaurantName(name: String?) {
         tvRestaurantName.text = name
     }
 }
