@@ -40,7 +40,7 @@ class RestaurantViewModel(
         val restaurantList = mutableListOf<Restaurant>()
         for (i in 1..10) {
             val restaurant = Restaurant(
-                1, "Bahandi", "The best restaurant with tasty burgers",
+                i, "Bahandi", "The best restaurant with tasty burgers",
                 "Almaty, Tole bi street, 50",
                 "+77077881506", "lol", "98%", "25min", "1000T"
             )
