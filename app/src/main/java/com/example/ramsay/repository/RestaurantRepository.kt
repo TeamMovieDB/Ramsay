@@ -1,36 +1,31 @@
 package com.example.ramsay.repository
 
+import com.example.ramsay.database.RestaurantDao
 import com.example.ramsay.model.Dish
 import com.example.ramsay.model.Restaurant
 
 interface RestaurantRepository {
-    fun getRestaurant(): Restaurant
-    fun getMenu(): List<Dish>
+    fun insertMenu(menu: List<Dish>)
+    fun insertRestaurant(restaurant: Restaurant)
+    fun getRestaurantDetails(id: Int): Restaurant
+    fun getMenu(restaurantId: Int): List<Dish>
 }
 
-class RestaurantRepositoryImpl : RestaurantRepository {
-    override fun getRestaurant(): Restaurant {
-        return Restaurant(
-            12, "Bahandi",
-            "",
-            "Almaty, Tole bi street, 50",
-            "+77077881506", "lol", "98%", "25min", "1000T"
-        )
+class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : RestaurantRepository {
+
+    override fun insertMenu(menu: List<Dish>) {
+        restaurantDao.insertMenu(menu)
     }
 
-    override fun getMenu(): List<Dish> {
-        val menu: MutableList<Dish> = mutableListOf()
+    override fun insertRestaurant(restaurant: Restaurant) {
+        restaurantDao.insertRestaurant(restaurant)
+    }
 
-        for (i in 1..20) {
+    override fun getRestaurantDetails(id: Int): Restaurant {
+        return restaurantDao.getRestaurantDetails(id)
+    }
 
-            val dish = Dish(
-                id = 1,
-                title = "Hunter x Hunter",
-                description = "A Hunter is one who travels the world doing all sorts of dangerous tasks. From capturing criminals to searching deep within uncharted lands for any lost treasures. Gon is a young boy whose father disappeared long ago, being a Hunter. He believes if he could also follow his father's path, he could one day reunite with him.",
-                price = 1200
-            )
-            menu.add(dish)
-        }
-        return menu
+    override fun getMenu(restaurantId: Int): List<Dish> {
+        return restaurantDao.getMenu(restaurantId)
     }
 }
