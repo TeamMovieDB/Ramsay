@@ -1,21 +1,20 @@
 package com.example.ramsay.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ramsay.R
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ramsay.model.Customer
 import com.example.ramsay.model.Restaurant
 import com.example.ramsay.ui.CollapsingToolbarBottom
 import com.example.ramsay.ui.RestaurantsAdapter
 import com.example.ramsay.utils.AppBarStateChangedListener
+import com.example.ramsay.utils.BUNDLE_KEY
 import com.example.ramsay.utils.State
 import com.example.ramsay.view_model.RestaurantViewModel
 import com.google.android.material.appbar.AppBarLayout
@@ -51,9 +50,11 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         setToolbarSettings()
     }
 
-
-    override fun openDetails(position: Int, item: View?) {
+    override fun openDetails(position: Int, item: Restaurant?) {
+        val bundle = Bundle()
+        item?.id?.let { bundle.putInt(BUNDLE_KEY, it) }
         val restaurantMenuFragment = RestaurantDetailsFragment()
+        restaurantMenuFragment.arguments = bundle
         fragmentManager?.beginTransaction()?.add(R.id.frame, restaurantMenuFragment)
             ?.addToBackStack(null)?.commit()
     }
@@ -85,10 +86,10 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private fun getRestaurants() {
         restaurantViewModel.liveData.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
-                is RestaurantViewModel.State.DBfilled->{
+                is RestaurantViewModel.State.DBfilled -> {
                     restaurantViewModel.getRestaurants()
                 }
-                is RestaurantViewModel.State.RestaurantList ->{
+                is RestaurantViewModel.State.RestaurantList -> {
                     result.restaurantResult?.let { restaurantList.addAll(it) }
                     recyclerViewAdapter.notifyDataSetChanged()
                 }
