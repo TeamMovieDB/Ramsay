@@ -1,19 +1,69 @@
 package com.example.ramsay.view_model
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
 import com.example.ramsay.model.Dish
 import com.example.ramsay.model.Restaurant
 import com.example.ramsay.repository.RestaurantRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRepository) :
-    ViewModel() {
+    BaseViewModel() {
 
-    fun getRestaurantDescription(): Restaurant {
-        return restaurantRepository.getRestaurant()
+    val liveData = MutableLiveData<State>()
+
+    init {
+        fillDatabase()
     }
 
-    fun getMenu(): List<Dish> {
-        return restaurantRepository.getMenu()
+    private fun fillDatabase() {
+        val restaurant = Restaurant(
+            1, "Bahandi", "The best restaurant with tasty burgers",
+            "Almaty, Tole bi street, 50",
+            "+77077881506", "lol", "98%", "25min", "1000T"
+        )
+        val menu: MutableList<Dish> = mutableListOf()
+
+        for (i in 1..20) {
+
+            val dish = Dish(
+                id = i,
+                title = "Big Burger",
+                description = "A hamburger (also burger for short) is a sandwich consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked[1] or flame broiled. Hamburgers are often served with cheese, lettuce, tomato, onion, pickles, bacon, or chiles; condiments such as ketchup, mustard, mayonnaise, relish",
+                price = 1200
+            )
+            menu.add(dish)
+        }
+
+        launch {
+            withContext(Dispatchers.IO) {
+                restaurantRepository.insertRestaurant(restaurant)
+                restaurantRepository.insertMenu(menu)
+            }
+            liveData.value = State.DatabaseFilled
+        }
+    }
+
+    fun getRestaurantDescription(id: Int) {
+        launch {
+            val restaurant =
+                withContext(Dispatchers.IO) {
+                    return@withContext restaurantRepository.getRestaurantDetails(id)
+                }
+            liveData.value = State.RestaurantDetails(restaurant)
+            liveData.value = State.HideLoading
+        }
+    }
+
+    fun getMenu(restaurantId: Int) {
+        launch {
+            val menu = withContext(Dispatchers.IO) {
+                return@withContext restaurantRepository.getMenu(restaurantId)
+            }
+            liveData.value = State.Menu(menu)
+            liveData.value = State.HideLoading
+        }
     }
 
     fun addToCart() {
@@ -22,5 +72,12 @@ class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRep
 
     fun changeOrderedDishAmount() {
 
+    }
+
+    sealed class State {
+        object DatabaseFilled : State()
+        object HideLoading : State()
+        data class Menu(val menu: List<Dish>?) : State()
+        data class RestaurantDetails(val restaurant: Restaurant?) : State()
     }
 }

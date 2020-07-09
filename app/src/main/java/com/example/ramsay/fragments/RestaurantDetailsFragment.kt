@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ramsay.R
 import com.example.ramsay.model.Dish
-import com.example.ramsay.model.Restaurant
 import com.example.ramsay.ui.MenuAdapter
-import com.example.ramsay.widgets.RestaurantDetailsView
 import com.example.ramsay.utils.AppBarStateChangedListener
 import com.example.ramsay.utils.State
+import com.example.ramsay.view_model.RestaurantDetailsViewModel
+import com.example.ramsay.widgets.RestaurantDetailsView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import org.koin.android.ext.android.inject
 
 
 class RestaurantDetailsFragment : Fragment(),
@@ -26,10 +29,13 @@ class RestaurantDetailsFragment : Fragment(),
     private lateinit var appbarLayout: AppBarLayout
     private lateinit var restDescriptionCard: RestaurantDetailsView
     private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
+    private lateinit var progressBar: ProgressBar
 
     private val menuAdapter: MenuAdapter by lazy {
         MenuAdapter(itemClickListener = this)
     }
+
+    private val restaurantDetailsViewModel: RestaurantDetailsViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,13 +45,10 @@ class RestaurantDetailsFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         bindViews(view)
         setListeners()
         setAdapter()
-        val menu = getMenu()
-        menuAdapter.setMenu(menu)
-        setRestaurantData()
+        observe()
     }
 
     override fun itemClick(position: Int, item: Dish) {
@@ -57,6 +60,7 @@ class RestaurantDetailsFragment : Fragment(),
         appbarLayout = view.findViewById(R.id.appbarLayout)
         restDescriptionCard = view.findViewById(R.id.restDescriptionCard)
         collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarLayout)
+        progressBar = view.findViewById(R.id.progressBar)
     }
 
     private fun setListeners() {
@@ -79,30 +83,25 @@ class RestaurantDetailsFragment : Fragment(),
         recyclerView.adapter = menuAdapter
     }
 
-    private fun getMenu(): List<Dish> {
-        val menu: MutableList<Dish> = mutableListOf()
+    private fun observe() {
+        restaurantDetailsViewModel.liveData.observe(requireActivity(), Observer { result ->
+            when (result) {
 
-        for (i in 1..20) {
-
-            val dish = Dish(
-                id = 1,
-                title = "Hunter x Hunter",
-                description = "A Hunter is one who travels the world doing all sorts of dangerous tasks. From capturing criminals to searching deep within uncharted lands for any lost treasures. Gon is a young boy whose father disappeared long ago, being a Hunter. He believes if he could also follow his father's path, he could one day reunite with him.",
-                price = 1200
-            )
-            menu.add(dish)
-        }
-        return menu
-    }
-
-    private fun setRestaurantData() {
-        val restaurant =
-            Restaurant(
-                12, "Bahandi",
-                "A Hunter is one who travels the world doing all sorts of dangerous tasks. ",
-                "Almaty, Tole bi street, 50",
-                "+77077881506", "lol", "98%", "25min", "1000T"
-            )
-        restDescriptionCard.setData(restaurant)
+                is RestaurantDetailsViewModel.State.DatabaseFilled -> {
+                    restaurantDetailsViewModel.getMenu(1)
+                    restaurantDetailsViewModel.getRestaurantDescription(1)
+                }
+                is RestaurantDetailsViewModel.State.Menu -> {
+                    menuAdapter.setMenu(result.menu)
+                    menuAdapter.notifyDataSetChanged()
+                }
+                is RestaurantDetailsViewModel.State.RestaurantDetails -> {
+                    result.restaurant?.let { restDescriptionCard.setData(it) }
+                }
+                is RestaurantDetailsViewModel.State.HideLoading -> {
+                    progressBar.visibility = View.GONE
+                }
+            }
+        })
     }
 }
