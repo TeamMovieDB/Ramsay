@@ -16,17 +16,17 @@ class RestaurantViewModel(
     val liveData = MutableLiveData<State>()
 
     init {
-        deleteAll()
         setRestaurants()
     }
 
-    private fun deleteAll(){
+    private fun deleteAll() {
         launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 restaurantRepository.deleteAll()
             }
         }
     }
+
     fun getRestaurants() {
         launch {
             val restaurantList = withContext(Dispatchers.IO) {
@@ -39,18 +39,11 @@ class RestaurantViewModel(
     private fun setRestaurants() {
         val restaurantList = mutableListOf<Restaurant>()
         for (i in 1..10) {
-            val restaurant =
-                Restaurant(
-                    i,
-                    "Bahandi",
-                    "lol",
-                    "lol",
-                    "+77077881506",
-                    "lol",
-                    "98%",
-                    "25min",
-                    "1000T"
-                )
+            val restaurant = Restaurant(
+                1, "Bahandi", "The best restaurant with tasty burgers",
+                "Almaty, Tole bi street, 50",
+                "+77077881506", "lol", "98%", "25min", "1000T"
+            )
             restaurantList.add(restaurant)
         }
         launch {
