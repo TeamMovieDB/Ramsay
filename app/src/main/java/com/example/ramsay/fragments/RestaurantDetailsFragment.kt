@@ -21,7 +21,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import org.koin.android.ext.android.inject
 
-
 class RestaurantDetailsFragment : Fragment(),
     MenuAdapter.RecyclerViewItemClick {
 
