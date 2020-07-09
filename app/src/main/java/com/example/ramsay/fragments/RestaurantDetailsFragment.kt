@@ -14,13 +14,13 @@ import com.example.ramsay.R
 import com.example.ramsay.model.Dish
 import com.example.ramsay.ui.MenuAdapter
 import com.example.ramsay.utils.AppBarStateChangedListener
+import com.example.ramsay.utils.BUNDLE_KEY
 import com.example.ramsay.utils.State
 import com.example.ramsay.view_model.RestaurantDetailsViewModel
 import com.example.ramsay.widgets.RestaurantDetailsView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import org.koin.android.ext.android.inject
-
 
 class RestaurantDetailsFragment : Fragment(),
     MenuAdapter.RecyclerViewItemClick {
@@ -30,6 +30,7 @@ class RestaurantDetailsFragment : Fragment(),
     private lateinit var restDescriptionCard: RestaurantDetailsView
     private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
     private lateinit var progressBar: ProgressBar
+    private var restaurantId = 1
 
     private val menuAdapter: MenuAdapter by lazy {
         MenuAdapter(itemClickListener = this)
@@ -46,6 +47,7 @@ class RestaurantDetailsFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindViews(view)
+        getBundle()
         setListeners()
         setAdapter()
         observe()
@@ -61,6 +63,13 @@ class RestaurantDetailsFragment : Fragment(),
         restDescriptionCard = view.findViewById(R.id.restDescriptionCard)
         collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarLayout)
         progressBar = view.findViewById(R.id.progressBar)
+    }
+
+    private fun getBundle() {
+        val bundle = this.arguments
+        if (bundle != null) {
+            restaurantId = bundle.getInt(BUNDLE_KEY)
+        }
     }
 
     private fun setListeners() {
@@ -88,8 +97,8 @@ class RestaurantDetailsFragment : Fragment(),
             when (result) {
 
                 is RestaurantDetailsViewModel.State.DatabaseFilled -> {
-                    restaurantDetailsViewModel.getMenu(1)
-                    restaurantDetailsViewModel.getRestaurantDescription(1)
+                    restaurantDetailsViewModel.getRestaurantDescription(restaurantId)
+                    restaurantDetailsViewModel.getMenu()
                 }
                 is RestaurantDetailsViewModel.State.Menu -> {
                     menuAdapter.setMenu(result.menu)

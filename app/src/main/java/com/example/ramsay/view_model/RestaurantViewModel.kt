@@ -1,9 +1,6 @@
 package com.example.ramsay.view_model
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.ramsay.model.Restaurant
 import com.example.ramsay.repository.RestaurantRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,23 +14,6 @@ class RestaurantViewModel(
 
     init {
         setRestaurants()
-    }
-
-    private fun deleteAll() {
-        launch {
-            withContext(Dispatchers.IO) {
-                restaurantRepository.deleteAll()
-            }
-        }
-    }
-
-    fun getRestaurants() {
-        launch {
-            val restaurantList = withContext(Dispatchers.IO) {
-                return@withContext restaurantRepository.getRestaurants()
-            }
-            liveData.value = State.RestaurantList(restaurantList)
-        }
     }
 
     private fun setRestaurants() {
@@ -52,6 +32,15 @@ class RestaurantViewModel(
             }
         }
         liveData.value = State.DBfilled
+    }
+
+    fun getRestaurants() {
+        launch {
+            val restaurantList = withContext(Dispatchers.IO) {
+                return@withContext restaurantRepository.getRestaurants()
+            }
+            liveData.value = State.RestaurantList(restaurantList)
+        }
     }
 
     sealed class State {

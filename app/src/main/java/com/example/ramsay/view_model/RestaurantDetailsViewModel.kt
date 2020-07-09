@@ -18,14 +18,9 @@ class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRep
     }
 
     private fun fillDatabase() {
-        val restaurant = Restaurant(
-            1, "Bahandi", "The best restaurant with tasty burgers",
-            "Almaty, Tole bi street, 50",
-            "+77077881506", "lol", "98%", "25min", "1000T"
-        )
         val menu: MutableList<Dish> = mutableListOf()
 
-        for (i in 1..20) {
+        for (i in 1..10) {
 
             val dish = Dish(
                 id = i,
@@ -55,7 +50,7 @@ class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRep
         }
     }
 
-    fun getMenu(restaurantId: Int) {
+    fun getMenu(restaurantId: Int = 1) {
         launch {
             val menu = withContext(Dispatchers.IO) {
                 return@withContext restaurantRepository.getMenu(restaurantId)
@@ -65,13 +60,8 @@ class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRep
         }
     }
 
-    fun addToCart() {
-
-    }
-
-    fun changeOrderedDishAmount() {
-
-    }
+    fun addToCart() {}
+    fun changeOrderedDishAmount() {}
 
     sealed class State {
         object DatabaseFilled : State()

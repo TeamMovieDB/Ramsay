@@ -1,6 +1,5 @@
 package com.example.ramsay.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,8 @@ class RestaurantsAdapter(private val restaurantClickListener: RestaurantItemClic
     private var restaurants = mutableListOf<Restaurant>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.restaurant_item,parent,false)
+        val inflater =
+            LayoutInflater.from(parent.context).inflate(R.layout.restaurant_item, parent, false)
         return RestaurantViewHolder(inflater)
     }
 
@@ -40,12 +40,12 @@ class RestaurantsAdapter(private val restaurantClickListener: RestaurantItemClic
             val restaurantView = view.findViewById<View>(R.id.restaurant)
             restaurantView.restaurant.setRestaurantData(restaurantData)
             restaurantView.setOnClickListener {
-                restaurantClickListener?.openDetails(adapterPosition, restaurantView)
+                restaurantClickListener?.openDetails(adapterPosition, restaurantData)
             }
         }
     }
 
     interface RestaurantItemClick {
-        fun openDetails(position: Int, item: View?)
+        fun openDetails(position: Int, item: Restaurant?)
     }
 }
