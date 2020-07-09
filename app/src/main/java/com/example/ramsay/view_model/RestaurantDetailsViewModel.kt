@@ -25,7 +25,7 @@ class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRep
 //        )
         val menu: MutableList<Dish> = mutableListOf()
 
-        for (i in 1..20) {
+        for (i in 1..10) {
 
             val dish = Dish(
                 id = i,
