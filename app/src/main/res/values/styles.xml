@@ -11,12 +11,19 @@
         <item name="android:fontFamily">@font/yellow_tail</item>
         <item name="android:textSize">32sp</item>
     </style>
+
     <style name="expandedToolbarStyle">
         <item name="android:fontFamily">@font/yellow_tail</item>
         <item name="android:textSize">64sp</item>
     </style>
+
     <style name="expandedToolbarStyleSmall">
         <item name="android:fontFamily">@font/yellow_tail</item>
         <item name="android:textSize">48sp</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
 </resources>

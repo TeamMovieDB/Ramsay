@@ -14,9 +14,8 @@ import com.example.ramsay.model.Customer
 import com.squareup.picasso.Picasso
 
 class CollapsingToolbarBottom : ConstraintLayout {
-    lateinit var tvNickname: TextView
+    private lateinit var tvNickname: TextView
     lateinit var ivAvatar: ImageView
-    private var rotationAngle = 0
     constructor(context: Context) : super(context) {
         init(context)
     }

@@ -10,5 +10,6 @@ data class Customer(
     val phone: String,
     val email: String,
     val address: String,
-    val image: String
+    val image: String,
+    val password: String
 )
