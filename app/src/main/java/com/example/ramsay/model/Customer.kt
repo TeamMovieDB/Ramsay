@@ -1,5 +1,6 @@
 package com.example.ramsay.model
 
+
 data class Customer(
     val username: String,
     val firstName: String,

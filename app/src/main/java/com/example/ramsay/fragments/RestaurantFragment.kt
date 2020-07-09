@@ -105,28 +105,4 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         toolbar.setExpandedTitleMargin(280, 0, 0, 280)
     }
 
-    private fun settingFakeData() {
-        val restaurant =
-            Restaurant(12, "Bahandi", "lol", "lol", "+77077881506", "lol", "98%", "25min", "1000T")
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-        restaurantList.add(restaurant)
-
-        val customer = Customer(
-            "Alikhan Baisholanov",
-            "Alikhan",
-            "Baisholanov",
-            "+77077881506",
-            "uhuput07@gmail.com",
-            "lol",
-            "lol"
-        )
-        collapsingToolbarBottom.setUserHalfData(customer)
-    }
 }
