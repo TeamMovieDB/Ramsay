@@ -61,7 +61,6 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private fun setAdapter() {
         recyclerViewAdapter.setItems(restaurantList)
         recyclerView.adapter = recyclerViewAdapter
-        recyclerViewAdapter.notifyDataSetChanged()
     }
 
     private fun bindViews(view: View) {
@@ -91,6 +90,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
                 }
                 is RestaurantViewModel.State.RestaurantList ->{
                     result.restaurantResult?.let { restaurantList.addAll(it) }
+                    recyclerViewAdapter.notifyDataSetChanged()
                 }
             }
         })

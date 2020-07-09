@@ -41,7 +41,7 @@ class RestaurantViewModel(
         for (i in 1..10) {
             val restaurant =
                 Restaurant(
-                    12,
+                    i,
                     "Bahandi",
                     "lol",
                     "lol",
