@@ -1,4 +1,4 @@
-package com.example.ramsay.ui
+package com.example.ramsay.widgets
 
 import android.content.Context
 import android.util.AttributeSet

@@ -12,14 +12,14 @@ import com.example.ramsay.R
 import com.example.ramsay.model.Dish
 import com.example.ramsay.model.Restaurant
 import com.example.ramsay.ui.MenuAdapter
-import com.example.ramsay.ui.RestaurantDetailsView
+import com.example.ramsay.widgets.RestaurantDetailsView
 import com.example.ramsay.utils.AppBarStateChangedListener
 import com.example.ramsay.utils.State
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
 
-class RestaurantMenuFragment : Fragment(),
+class RestaurantDetailsFragment : Fragment(),
     MenuAdapter.RecyclerViewItemClick {
 
     private lateinit var recyclerView: RecyclerView

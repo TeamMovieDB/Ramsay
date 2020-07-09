@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ramsay.model.Dish
+import com.example.ramsay.widgets.DishItemView
 
 class MenuAdapter(
     private val itemClickListener: RecyclerViewItemClick? = null
