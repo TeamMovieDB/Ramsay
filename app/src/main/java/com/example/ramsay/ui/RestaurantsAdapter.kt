@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.restaurant_item.view.*
 class RestaurantsAdapter(private val restaurantClickListener: RestaurantItemClick?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var restaurants = mutableListOf<Restaurant>()
+    var restaurants = mutableListOf<Restaurant>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater =
