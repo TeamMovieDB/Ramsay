@@ -36,15 +36,19 @@ class RestaurantViewModel(
 
     fun getRestaurants() {
         launch {
+            liveData.value = State.ShowLoading
             val restaurantList = withContext(Dispatchers.IO) {
                 return@withContext restaurantRepository.getRestaurants()
             }
+            liveData.value = State.HideLoading
             liveData.value = State.RestaurantList(restaurantList)
         }
     }
 
     sealed class State {
         object DBfilled : State()
+        object ShowLoading: State()
+        object HideLoading: State()
         data class RestaurantList(val restaurantResult: List<Restaurant>?) : State()
     }
 }

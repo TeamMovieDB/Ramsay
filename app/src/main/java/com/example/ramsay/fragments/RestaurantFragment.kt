@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,16 +34,16 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private lateinit var collapsingToolbarBottom: CollapsingToolbarBottom
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var floatingButton: FloatingActionButton
-    private val scrollListener = object: RecyclerView.OnScrollListener(){
+    private lateinit var progressBar: ProgressBar
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            when(newState){
+            when (newState) {
                 RecyclerView.SCROLL_STATE_DRAGGING -> floatingButton.hide()
-                RecyclerView.SCROLL_STATE_IDLE ->{
+                RecyclerView.SCROLL_STATE_IDLE -> {
                     val firstVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                    if(firstVisibleItem <= 5){
+                    if (firstVisibleItem <= 5) {
                         floatingButton.hide()
-                    }
-                    else{
+                    } else {
                         floatingButton.show()
                     }
                 }
@@ -101,6 +102,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         appBarLayout = view.findViewById(R.id.appbarLayout)
         collapsingToolbarBottom = view.findViewById(R.id.collapsingToolbarBottom)
         floatingButton = view.findViewById(R.id.floatingActionButton)
+        progressBar = view.findViewById(R.id.restaurantsProgressBar)
         appBarLayout.addOnOffsetChangedListener(object : AppBarStateChangedListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
                 if (state == State.EXPANDED) {
@@ -112,6 +114,11 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         })
         floatingButton.setOnClickListener {
             scrollingToTop()
+        }
+        collapsingToolbarBottom.ivAvatar.setOnClickListener {
+            val accountFragment = AccountFragment()
+            fragmentManager?.beginTransaction()?.add(R.id.frame, accountFragment)
+                ?.addToBackStack(null)?.commit()
         }
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
@@ -128,6 +135,9 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
                     result.restaurantResult?.let { restaurantList.addAll(it) }
                     recyclerViewAdapter.notifyDataSetChanged()
                 }
+                is RestaurantViewModel.State.HideLoading -> {
+                    progressBar.visibility = View.GONE
+                }
             }
         })
     }
@@ -138,11 +148,11 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         toolbar.title = context?.getString(R.string.app_name)
         toolbar.collapsedTitleGravity = Gravity.CENTER_VERTICAL
         toolbar.expandedTitleGravity = Gravity.TOP
-        toolbar.setExpandedTitleMargin(280, 0, 0, 280)
+        toolbar.setExpandedTitleMargin(280, 0, 280, 280)
     }
 
-    private fun scrollingToTop(){
-        val smoothScroller = object: LinearSmoothScroller(context) {
+    private fun scrollingToTop() {
+        val smoothScroller = object : LinearSmoothScroller(context) {
             override fun getVerticalSnapPreference(): Int {
                 return SNAP_TO_ANY
             }
@@ -150,6 +160,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         smoothScroller.targetPosition = 0
         layoutManager.startSmoothScroll(smoothScroller)
     }
+
     private fun settingFakeUserData() {
         val customer = Customer(
             "Alikhan Baisholanov",
@@ -158,7 +169,8 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
             "+77077881506",
             "uhuput07@gmail.com",
             "lol",
-            "lol"
+            "lol",
+            "password"
         )
         collapsingToolbarBottom.setUserHalfData(customer)
     }
