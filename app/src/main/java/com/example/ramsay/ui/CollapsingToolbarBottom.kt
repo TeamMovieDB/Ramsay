@@ -33,7 +33,7 @@ class CollapsingToolbarBottom : ConstraintLayout {
 
     fun setUserHalfData(customer: Customer){
         setUsername(customer.username)
-        setAvatar(customer.image)
+//        setAvatar(customer.image)
     }
 
     private fun setUsername(username: String){
