@@ -3,4 +3,6 @@
     <string name="search_restaurant">Search restaurant</string>
     <string name="price">%1$d KZT</string>
     <string name="profile">Profile</string>
+    <string name="greeting">Welcome, %1$s</string>
+    <string name="account">Account</string>
 </resources>
