@@ -5,7 +5,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +24,7 @@ import com.example.ramsay.utils.State
 import com.example.ramsay.view_model.RestaurantViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 
@@ -35,6 +38,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var progressBar: ProgressBar
+    private var bottomSheetDialog: BottomSheetDialog?=null
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             when (newState) {
@@ -116,9 +120,10 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
             scrollingToTop()
         }
         collapsingToolbarBottom.ivAvatar.setOnClickListener {
-            val accountFragment = AccountFragment()
-            fragmentManager?.beginTransaction()?.add(R.id.frame, accountFragment)
-                ?.addToBackStack(null)?.commit()
+            callingBottomSheetDialog()
+//            val accountFragment = AccountFragment()
+//            fragmentManager?.beginTransaction()?.add(R.id.frame, accountFragment)
+//                ?.addToBackStack(null)?.commit()
         }
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
@@ -173,5 +178,20 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
             "password"
         )
         collapsingToolbarBottom.setUserHalfData(customer)
+    }
+    private fun callingBottomSheetDialog(){
+        bottomSheetDialog = context?.let { BottomSheetDialog(it) }
+        bottomSheetDialog?.setContentView(R.layout.bottom_sheet_dialog)
+        bottomSheetDialog?.setCanceledOnTouchOutside(false)
+        settingAccountData()
+        bottomSheetDialog?.show()
+    }
+
+    private fun settingAccountData(){
+        val ivAvatar = bottomSheetDialog?.findViewById<ImageView>(R.id.ivAvatar)
+        val tvMyOrders = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
+        val tvMyInfo = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
+        val tvFaq = bottomSheetDialog?.findViewById<TextView>(R.id.tvFaq)
+        val tvLogout = bottomSheetDialog?.findViewById<TextView>(R.id.tvLogout)
     }
 }
