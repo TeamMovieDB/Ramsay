@@ -28,11 +28,11 @@ class AccountFragment : Fragment() {
         bottomSheetDialog = context?.let { BottomSheetDialog(it) }
         bottomSheetDialog?.setContentView(R.layout.bottom_sheet_dialog)
         bottomSheetDialog?.setCanceledOnTouchOutside(false)
-        settingAccountData()
+        bindingBottomSheetViews()
         bottomSheetDialog?.show()
     }
 
-    private fun settingAccountData(){
+    private fun bindingBottomSheetViews(){
         val ivAvatar = bottomSheetDialog?.findViewById<ImageView>(R.id.ivAvatar)
         val tvMyOrders = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
         val tvMyInfo = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
