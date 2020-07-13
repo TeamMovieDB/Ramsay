@@ -5,6 +5,7 @@ import com.example.ramsay.database.RestaurantDao
 import com.example.ramsay.database.RestaurantDatabase
 import com.example.ramsay.repository.RestaurantRepository
 import com.example.ramsay.repository.RestaurantRepositoryImpl
+import com.example.ramsay.view_model.BasketViewModel
 import com.example.ramsay.view_model.RestaurantDetailsViewModel
 import com.example.ramsay.view_model.RestaurantViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,12 +21,12 @@ val repositoryModule = module {
 
 val viewModelModule1 = module {
     viewModel { RestaurantDetailsViewModel(restaurantRepository = get()) }
-}
-val viewModelModule2 = module {
     viewModel { RestaurantViewModel(restaurantRepository = get()) }
+    viewModel { BasketViewModel(restaurantRepository = get()) }
 }
 
-val appModule = listOf(storageModule, repositoryModule, viewModelModule1, viewModelModule2)
+
+val appModule = listOf(storageModule, repositoryModule, viewModelModule1)
 
 private fun getRestaurantDao(context: Context): RestaurantDao {
     return RestaurantDatabase.getDatabase(context).restaurantDao()

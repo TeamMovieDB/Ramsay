@@ -1,7 +1,9 @@
 package com.example.ramsay.database
 
-import android.util.Log
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.ramsay.model.Dish
 import com.example.ramsay.model.Restaurant
 
@@ -28,4 +30,14 @@ interface RestaurantDao {
 
     @Query("DELETE FROM restaurant")
     fun deleteAll()
+
+    @Query("UPDATE dishes SET isInCart=1 WHERE id=:id")
+    fun insertItemToCart(id: Int?)
+
+    @Query("SELECT * FROM dishes WHERE isInCart=1")
+    fun getBasketItems(): List<Dish>?
+
+    @Query("DELETE FROM dishes WHERE isInCart=1")
+    fun clearBasket()
 }
+

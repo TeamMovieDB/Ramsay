@@ -38,7 +38,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var progressBar: ProgressBar
-    private var bottomSheetDialog: BottomSheetDialog?=null
+    private var bottomSheetDialog: BottomSheetDialog? = null
 
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -179,7 +179,8 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         )
         collapsingToolbarBottom.setUserHalfData(customer)
     }
-    private fun callingBottomSheetDialog(){
+
+    private fun callingBottomSheetDialog() {
         bottomSheetDialog = context?.let { BottomSheetDialog(it) }
         bottomSheetDialog?.setContentView(R.layout.bottom_sheet_dialog)
         bottomSheetDialog?.setCanceledOnTouchOutside(false)
@@ -187,7 +188,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         bottomSheetDialog?.show()
     }
 
-    private fun settingAccountData(){
+    private fun settingAccountData() {
         val ivAvatar = bottomSheetDialog?.findViewById<ImageView>(R.id.ivAvatar)
         val tvMyOrders = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
         val tvMyInfo = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)

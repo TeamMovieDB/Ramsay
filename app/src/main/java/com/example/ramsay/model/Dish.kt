@@ -13,5 +13,7 @@ data class Dish(
     val price: Int?,
     val description: String?,
     val ingredients: String? = null,
-    val image: String? = null
+    val image: String? = null,
+    val amount: Int? = 0,
+    val isInCart: Boolean = false
 )

@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ramsay.model.Dish
+import com.example.ramsay.widgets.AddToCartClickListener
 import com.example.ramsay.widgets.DishItemView
 
 class MenuAdapter(
@@ -45,10 +46,22 @@ class MenuAdapter(
                 }
             }
 
+            val addToCartClickListener: AddToCartClickListener = object :
+                AddToCartClickListener {
+                override fun addToCart(item: Dish?) {
+                    if (dish != null) {
+                        itemClickListener?.addToCartClick(dish)
+                    }
+                }
+            }
+            dishItemView.setAddToCartListener(addToCartClickListener)
+
         }
     }
 
     interface RecyclerViewItemClick {
         fun itemClick(position: Int, item: Dish)
+        fun addToCartClick(item: Dish)
+
     }
 }

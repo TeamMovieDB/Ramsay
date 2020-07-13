@@ -16,10 +16,12 @@ import com.example.ramsay.ui.MenuAdapter
 import com.example.ramsay.utils.AppBarStateChangedListener
 import com.example.ramsay.utils.BUNDLE_KEY
 import com.example.ramsay.utils.State
+import com.example.ramsay.view_model.BasketViewModel
 import com.example.ramsay.view_model.RestaurantDetailsViewModel
 import com.example.ramsay.widgets.RestaurantDetailsView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 
 class RestaurantDetailsFragment : Fragment(),
@@ -30,6 +32,7 @@ class RestaurantDetailsFragment : Fragment(),
     private lateinit var restDescriptionCard: RestaurantDetailsView
     private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
     private lateinit var progressBar: ProgressBar
+    private lateinit var cartButton: FloatingActionButton
     private var restaurantId = 1
 
     private val menuAdapter: MenuAdapter by lazy {
@@ -37,6 +40,7 @@ class RestaurantDetailsFragment : Fragment(),
     }
 
     private val restaurantDetailsViewModel: RestaurantDetailsViewModel by inject()
+    private val basketViewModel: BasketViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -57,12 +61,18 @@ class RestaurantDetailsFragment : Fragment(),
         Toast.makeText(requireContext(), "hello", Toast.LENGTH_SHORT).show()
     }
 
+    override fun addToCartClick(item: Dish) {
+        basketViewModel.insertItem(item)
+        Toast.makeText(requireContext(), "Added to cart", Toast.LENGTH_SHORT).show()
+    }
+
     private fun bindViews(view: View) {
         recyclerView = view.findViewById(R.id.menuRecyclerView)
         appbarLayout = view.findViewById(R.id.appbarLayout)
         restDescriptionCard = view.findViewById(R.id.restDescriptionCard)
         collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarLayout)
         progressBar = view.findViewById(R.id.progressBar)
+        cartButton = view.findViewById(R.id.cartButton)
     }
 
     private fun getBundle() {
@@ -73,6 +83,12 @@ class RestaurantDetailsFragment : Fragment(),
     }
 
     private fun setListeners() {
+
+        cartButton.setOnClickListener {
+            val basketFragment = BasketFragment()
+            fragmentManager?.beginTransaction()?.add(R.id.frame, basketFragment)
+                ?.addToBackStack(null)?.commit()
+        }
 
         appbarLayout.addOnOffsetChangedListener(object : AppBarStateChangedListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
