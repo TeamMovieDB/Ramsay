@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         fragmentManager.beginTransaction().add(R.id.frame, restaurantsFragment).commit()
     }
 
-    private fun bindViews() {
+    fun bindViews() {
 
     }
 

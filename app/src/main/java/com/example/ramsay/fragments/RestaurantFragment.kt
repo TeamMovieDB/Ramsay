@@ -167,6 +167,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
 
     private fun settingFakeUserData() {
         val customer = Customer(
+            12,
             "Alikhan Baisholanov",
             "Alikhan",
             "Baisholanov",
@@ -182,15 +183,26 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         bottomSheetDialog = context?.let { BottomSheetDialog(it) }
         bottomSheetDialog?.setContentView(R.layout.bottom_sheet_dialog)
         bottomSheetDialog?.setCanceledOnTouchOutside(false)
-        settingAccountData()
+        settingAccountViews()
         bottomSheetDialog?.show()
     }
 
-    private fun settingAccountData(){
+    private fun settingAccountViews(){
         val ivAvatar = bottomSheetDialog?.findViewById<ImageView>(R.id.ivAvatar)
-        val tvMyOrders = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
-        val tvMyInfo = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
+        val tvMyInfo = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyInfo)
         val tvFaq = bottomSheetDialog?.findViewById<TextView>(R.id.tvFaq)
         val tvLogout = bottomSheetDialog?.findViewById<TextView>(R.id.tvLogout)
+
+        tvFaq?.setOnClickListener {
+            val faqFragment = FaqFragment()
+            fragmentManager?.beginTransaction()?.add(R.id.frame, faqFragment)
+                ?.addToBackStack(null)?.commit()
+            bottomSheetDialog?.hide()
+        }
+        tvMyInfo?.setOnClickListener {
+            val userInformationFragment = UserInformationFragment()
+            fragmentManager?.beginTransaction()?.add(R.id.frame, userInformationFragment)?.addToBackStack(null)?.commit()
+            bottomSheetDialog?.hide()
+        }
     }
 }

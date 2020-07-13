@@ -50,30 +50,17 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tvMyOrders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="My orders"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cdAvatar" />
-
-    <TextView
         android:id="@+id/tvMyInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="My information"
         android:textColor="#000000"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMyOrders" />
+        app:layout_constraintTop_toBottomOf="@+id/cdAvatar" />
 
     <TextView
         android:id="@+id/tvFaq"
