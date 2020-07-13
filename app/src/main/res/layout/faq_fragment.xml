@@ -1,6 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/tvProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/yellow_tail"
+        android:text="@string/f_a_q"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/user_information_corners"
+        android:backgroundTint="@color/white"
+        android:elevation="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProfile"
+        tools:layout_editor_absoluteX="0dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ramsay_icon_png" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:answerText="@string/questionOneAnswer"
+                    app:questionText="Who are the couriers?" />
+
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionText="@string/question2"
+                    app:answerText="@string/questionTwoAnswer"/>
+
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionText="@string/question3"
+                    app:answerText="@string/questionAnswerThree"/>
+
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionText="How much delivery cost?"
+                    app:answerText="Delivery cost is equal to zero)"/>
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionText="Do you transfer animals"
+                    app:answerText="No"/>
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionText="How do I place an order"
+                    app:answerText="U don't need to do this)"/>
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionText="Is Glovo available in my neighborhood"
+                    app:answerText="You can see it in map section"/>
+                <com.example.ramsay.widgets.QuestionAnswerView
+                    android:id="@+id/question8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:questionText="What is Ramsay?"
+                    app:answerText="Ramsay is android model without backend food delivering app"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

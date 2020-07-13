@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/tvProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/yellow_tail"
+        android:text="@string/my_information"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/user_information_corners"
+        android:backgroundTint="@color/white"
+        android:elevation="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProfile"
+        tools:layout_editor_absoluteX="0dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/avatar" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+            <LinearLayout
+                android:id="@+id/llUserData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etNameSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:ems="10"
+                    android:inputType="phone"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:ems="10"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/etAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:ems="10"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

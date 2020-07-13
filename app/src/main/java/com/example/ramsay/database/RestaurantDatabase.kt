@@ -13,7 +13,7 @@ abstract class RestaurantDatabase : RoomDatabase() {
 
     companion object {
         var database: RestaurantDatabase? = null
-        private const val databaseName: String = "restaurant_database2.db"
+        private const val databaseName: String = "restaurant_database.db"
         fun getDatabase(context: Context): RestaurantDatabase {
             if (database == null) {
                 database = Room.databaseBuilder(
