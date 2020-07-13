@@ -153,8 +153,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         toolbar.setExpandedTitleTextAppearance(R.style.expandedToolbarStyle)
         toolbar.title = context?.getString(R.string.app_name)
         toolbar.collapsedTitleGravity = Gravity.CENTER_VERTICAL
-        toolbar.expandedTitleGravity = Gravity.TOP
-        toolbar.setExpandedTitleMargin(280, 0, 280, 280)
+        toolbar.expandedTitleMarginTop = 0
     }
 
     private fun scrollingToTop() {

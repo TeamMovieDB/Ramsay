@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:contentScrim="@color/colorPrimary"
+                app:expandedTitleGravity="top|center_horizontal"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
                 <com.example.ramsay.ui.CollapsingToolbarBottom
