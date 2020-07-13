@@ -22,6 +22,7 @@
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleGravity="top|center_horizontal"
             app:expandedTitleMargin="16dp"
+            app:expandedTitleMarginBottom="16dp"
             app:expandedTitleTextAppearance="@style/expandedToolbarStyleSmall"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="Bahandi">
@@ -73,6 +74,7 @@
         android:clickable="true"
         android:elevation="8dp"
         android:focusable="true"
+        android:background="@color/colorAccent"
         android:src="@drawable/ic_baseline_shopping_cart_24" />
 
     <ProgressBar

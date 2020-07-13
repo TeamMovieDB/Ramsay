@@ -39,6 +39,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var progressBar: ProgressBar
     private var bottomSheetDialog: BottomSheetDialog?=null
+
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             when (newState) {

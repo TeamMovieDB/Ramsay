@@ -14,7 +14,7 @@
 
     <style name="expandedToolbarStyle">
         <item name="android:fontFamily">@font/yellow_tail</item>
-        <item name="android:textSize">64sp</item>
+        <item name="android:textSize">56sp</item>
     </style>
 
     <style name="expandedToolbarStyleSmall">
