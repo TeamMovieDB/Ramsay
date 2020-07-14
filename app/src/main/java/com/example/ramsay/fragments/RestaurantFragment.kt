@@ -38,8 +38,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var progressBar: ProgressBar
-    private var bottomSheetDialog: BottomSheetDialog? = null
-
+    private var bottomSheetDialog: BottomSheetDialog?=null
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             when (newState) {
@@ -168,6 +167,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
 
     private fun settingFakeUserData() {
         val customer = Customer(
+            12,
             "Alikhan Baisholanov",
             "Alikhan",
             "Baisholanov",
@@ -179,20 +179,30 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         )
         collapsingToolbarBottom.setUserHalfData(customer)
     }
-
-    private fun callingBottomSheetDialog() {
+    private fun callingBottomSheetDialog(){
         bottomSheetDialog = context?.let { BottomSheetDialog(it) }
         bottomSheetDialog?.setContentView(R.layout.bottom_sheet_dialog)
         bottomSheetDialog?.setCanceledOnTouchOutside(false)
-        settingAccountData()
+        settingAccountViews()
         bottomSheetDialog?.show()
     }
 
-    private fun settingAccountData() {
+    private fun settingAccountViews(){
         val ivAvatar = bottomSheetDialog?.findViewById<ImageView>(R.id.ivAvatar)
-        val tvMyOrders = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
-        val tvMyInfo = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyOrders)
+        val tvMyInfo = bottomSheetDialog?.findViewById<TextView>(R.id.tvMyInfo)
         val tvFaq = bottomSheetDialog?.findViewById<TextView>(R.id.tvFaq)
         val tvLogout = bottomSheetDialog?.findViewById<TextView>(R.id.tvLogout)
+
+        tvFaq?.setOnClickListener {
+            val faqFragment = FaqFragment()
+            fragmentManager?.beginTransaction()?.add(R.id.frame, faqFragment)
+                ?.addToBackStack(null)?.commit()
+            bottomSheetDialog?.hide()
+        }
+        tvMyInfo?.setOnClickListener {
+            val userInformationFragment = UserInformationFragment()
+            fragmentManager?.beginTransaction()?.add(R.id.frame, userInformationFragment)?.addToBackStack(null)?.commit()
+            bottomSheetDialog?.hide()
+        }
     }
 }

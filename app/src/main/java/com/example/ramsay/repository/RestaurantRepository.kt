@@ -1,6 +1,7 @@
 package com.example.ramsay.repository
 
 import com.example.ramsay.database.RestaurantDao
+import com.example.ramsay.model.Customer
 import com.example.ramsay.model.Dish
 import com.example.ramsay.model.Restaurant
 
@@ -16,6 +17,9 @@ interface RestaurantRepository {
     fun getCartItems(): List<Dish>?
     fun addToCart(id: Int?)
     fun clearCart()
+    fun deleteAll()
+    fun getCustomer(): Customer
+    fun setCustomer():Customer
 }
 
 class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : RestaurantRepository {
@@ -57,5 +61,13 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
 
     override fun updateDishAmount(item: Dish, amount: Int) {
         restaurantDao.updateDishAmount(item.id, amount)
+    }
+
+    override fun getCustomer(): Customer {
+        TODO("Not yet implemented")
+    }
+
+    override fun setCustomer(): Customer {
+        TODO("Not yet implemented")
     }
 }

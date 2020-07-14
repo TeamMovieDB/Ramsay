@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginEnd="42dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/ivHider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Будут ли выдаваться сертификаты по окончанию курса?" />
+
+        <ImageView
+            android:id="@+id/ivHider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_hider" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvAnswer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_40dp"
+        android:animateLayoutChanges="true"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clLayoutTop"
+        tools:text="Да. После выполнении всех заданий, вы получите сертификат об успешном окончании курса." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

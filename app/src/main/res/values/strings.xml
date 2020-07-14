@@ -5,5 +5,13 @@
     <string name="profile">Profile</string>
     <string name="greeting">Welcome, %1$s</string>
     <string name="account">Account</string>
+    <string name="questionOneAnswer">Couriers are independent professionals connected to our platform. Together with a smartphone and their own vehicle, they\'re eager to help you with your tasks as quickly and effectively as possible.</string>
+    <string name="question2">When Ramsay is open?</string>
+    <string name="questionTwoAnswer">It is open when is has been opened in your phone</string>
+    <string name="question3">What can I order?</string>
+    <string name="questionAnswerThree">You can order every food what you want from all fastfood restaurant in your country</string>
+    <string name="f_a_q">F.A.Q</string>
+    <string name="my_information">My information</string>
+    <string name="name_surname">%1$s %2$s</string>
 </resources>
 
