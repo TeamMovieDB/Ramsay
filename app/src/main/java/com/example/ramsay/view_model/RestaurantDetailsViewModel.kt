@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
 class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRepository) :
     BaseViewModel() {
 
@@ -60,12 +61,24 @@ class RestaurantDetailsViewModel(private val restaurantRepository: RestaurantRep
         }
     }
 
-    fun addToCart() {}
-    fun changeOrderedDishAmount() {}
+    fun changeOrderedDishAmount(dish: Dish?, amount: Int) {
+        launch {
+            withContext(Dispatchers.IO) {
+                if (dish != null) {
+                    restaurantRepository.updateDishAmount(dish, amount)
+                }
+            }
+        }
+    }
+
+    fun itemsDeleted() {
+        liveData.value = State.ItemsDeleted
+    }
 
     sealed class State {
         object DatabaseFilled : State()
         object HideLoading : State()
+        object ItemsDeleted : State()
         data class Menu(val menu: List<Dish>?) : State()
         data class RestaurantDetails(val restaurant: Restaurant?) : State()
     }

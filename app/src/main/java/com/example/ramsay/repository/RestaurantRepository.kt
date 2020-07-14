@@ -1,6 +1,5 @@
 package com.example.ramsay.repository
 
-import android.util.Log
 import com.example.ramsay.database.RestaurantDao
 import com.example.ramsay.model.Customer
 import com.example.ramsay.model.Dish
@@ -13,7 +12,14 @@ interface RestaurantRepository {
     fun getRestaurantDetails(id: Int): Restaurant
     fun getMenu(restaurantId: Int): List<Dish>
     fun getRestaurants(): List<Restaurant>?
-    fun deleteAll()
+    fun updateDishAmount(item: Dish, amount: Int)
+
+    fun getCartItems(): List<Dish>?
+    fun addToCart(id: Int?)
+    fun clearCart()
+
+    fun getCustomer(): Customer
+    fun setCustomer(): Customer
 }
 
 class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : RestaurantRepository {
@@ -41,8 +47,27 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
         return restaurantDao.getRestaurants()
     }
 
-    override fun deleteAll() {
-        restaurantDao.deleteAll()
+    override fun getCartItems(): List<Dish>? {
+        return restaurantDao.getBasketItems()
     }
 
+    override fun clearCart() {
+        restaurantDao.clearBasket()
+    }
+
+    override fun addToCart(id: Int?) {
+        restaurantDao.insertItemToCart(id)
+    }
+
+    override fun updateDishAmount(item: Dish, amount: Int) {
+        restaurantDao.updateDishAmount(item.id, amount)
+    }
+
+    override fun getCustomer(): Customer {
+        TODO("Not yet implemented")
+    }
+
+    override fun setCustomer(): Customer {
+        TODO("Not yet implemented")
+    }
 }

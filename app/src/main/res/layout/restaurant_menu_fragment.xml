@@ -22,6 +22,7 @@
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleGravity="top|center_horizontal"
             app:expandedTitleMargin="16dp"
+            app:expandedTitleMarginBottom="16dp"
             app:expandedTitleTextAppearance="@style/expandedToolbarStyleSmall"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="Bahandi">
@@ -66,10 +67,12 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:background="@color/colorAccent"
         android:clickable="true"
         android:elevation="8dp"
         android:focusable="true"

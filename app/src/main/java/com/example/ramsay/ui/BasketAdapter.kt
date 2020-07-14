@@ -5,42 +5,53 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ramsay.model.Dish
 import com.example.ramsay.widgets.AddToCartClickListener
-import com.example.ramsay.widgets.DishItemView
+import com.example.ramsay.widgets.DishInCartItemView
 
-class MenuAdapter(
-    private val itemClickListener: RecyclerViewItemClick? = null
+class BasketAdapter(
+    private val itemClickListener: ItemClick? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var menu: List<Dish>? = listOf()
+    private var items: MutableList<Dish>? = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = DishItemView(parent.context)
+        val view = DishInCartItemView(parent.context)
         view.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        return MenuViewHolder(view)
+        return CartItemsViewHolder(view)
     }
 
-    override fun getItemCount(): Int = menu?.size ?: 0
+    override fun getItemCount(): Int = items?.size ?: 0
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is MenuViewHolder)
-            holder.bind(menu?.get(position))
+        if (holder is CartItemsViewHolder)
+            holder.bind(items?.get(position))
     }
 
-    fun setMenu(menu: List<Dish>?) {
-        this.menu = menu
+    fun setCartItems(items: List<Dish>?) {
+        this.items = items as MutableList<Dish>?
+        notifyDataSetChanged()
     }
 
-    inner class MenuViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    fun insertItem(item: Dish) {
+        items?.add(item)
+        items?.size?.minus(1)?.let { notifyItemInserted(it) }
+    }
 
-        private val dishItemView: DishItemView = view as DishItemView
+    fun removeItems() {
+        items?.clear()
+        notifyDataSetChanged()
+    }
+
+    inner class CartItemsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        private val cartItemView: DishInCartItemView = view as DishInCartItemView
 
         fun bind(dish: Dish?) {
-            dishItemView.setData(dish)
+            cartItemView.setData(dish)
 
-            dishItemView.setOnClickListener {
+            cartItemView.setOnClickListener {
                 if (dish != null) {
                     itemClickListener?.itemClick(adapterPosition, dish)
                 }
@@ -48,26 +59,19 @@ class MenuAdapter(
 
             val addToCartClickListener: AddToCartClickListener = object :
                 AddToCartClickListener {
-                override fun addToCart(item: Dish?) {
-                    if (dish != null) {
-                        itemClickListener?.addToCartClick(dish)
-                    }
-                }
-
+                override fun addToCart(item: Dish?) {}
                 override fun updateAmount(item: Dish?, amount: Int) {
                     if (item != null) {
                         itemClickListener?.updateItemAmount(item, amount)
                     }
                 }
             }
-            dishItemView.setAddToCartListener(addToCartClickListener)
-
+            cartItemView.setAddToCartListener(addToCartClickListener)
         }
     }
 
-    interface RecyclerViewItemClick {
+    interface ItemClick {
         fun itemClick(position: Int, item: Dish)
-        fun addToCartClick(item: Dish)
-        fun updateItemAmount(item: Dish, amount: Int)
+        fun updateItemAmount(item: Dish?, amount: Int)
     }
 }
