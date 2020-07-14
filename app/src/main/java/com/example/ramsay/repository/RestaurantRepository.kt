@@ -17,9 +17,9 @@ interface RestaurantRepository {
     fun getCartItems(): List<Dish>?
     fun addToCart(id: Int?)
     fun clearCart()
-    fun deleteAll()
+
     fun getCustomer(): Customer
-    fun setCustomer():Customer
+    fun setCustomer(): Customer
 }
 
 class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : RestaurantRepository {
