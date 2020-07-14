@@ -33,7 +33,29 @@ class BasketViewModel(private val restaurantRepository: RestaurantRepository) : 
         }
     }
 
+    fun changeOrderedDishAmount(dish: Dish?, amount: Int) {
+        launch {
+            withContext(Dispatchers.IO) {
+                if (dish != null) {
+                    restaurantRepository.updateDishAmount(dish, amount)
+                }
+            }
+            liveData.value = State.DishAmountChanged
+        }
+    }
+
+    fun clearBasket() {
+        launch {
+            withContext(Dispatchers.IO) {
+                restaurantRepository.clearCart()
+            }
+            liveData.value = State.BasketCleared
+        }
+    }
+
     sealed class State {
+        object DishAmountChanged : State()
+        object BasketCleared : State()
         data class Items(val items: List<Dish>?) : State()
         data class Inserted(val item: Dish) : State()
     }

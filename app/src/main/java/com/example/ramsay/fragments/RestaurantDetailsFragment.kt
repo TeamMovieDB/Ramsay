@@ -66,6 +66,10 @@ class RestaurantDetailsFragment : Fragment(),
         Toast.makeText(requireContext(), "Added to cart", Toast.LENGTH_SHORT).show()
     }
 
+    override fun updateItemAmount(item: Dish, amount: Int) {
+        restaurantDetailsViewModel.changeOrderedDishAmount(item, amount)
+    }
+
     private fun bindViews(view: View) {
         recyclerView = view.findViewById(R.id.menuRecyclerView)
         appbarLayout = view.findViewById(R.id.appbarLayout)
@@ -125,6 +129,9 @@ class RestaurantDetailsFragment : Fragment(),
                 }
                 is RestaurantDetailsViewModel.State.HideLoading -> {
                     progressBar.visibility = View.GONE
+                }
+                is RestaurantDetailsViewModel.State.ItemsDeleted -> {
+                    menuAdapter.notifyDataSetChanged()
                 }
             }
         })

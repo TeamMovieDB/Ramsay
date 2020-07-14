@@ -53,6 +53,12 @@ class MenuAdapter(
                         itemClickListener?.addToCartClick(dish)
                     }
                 }
+
+                override fun updateAmount(item: Dish?, amount: Int) {
+                    if (item != null) {
+                        itemClickListener?.updateItemAmount(item, amount)
+                    }
+                }
             }
             dishItemView.setAddToCartListener(addToCartClickListener)
 
@@ -62,6 +68,6 @@ class MenuAdapter(
     interface RecyclerViewItemClick {
         fun itemClick(position: Int, item: Dish)
         fun addToCartClick(item: Dish)
-
+        fun updateItemAmount(item: Dish, amount: Int)
     }
 }

@@ -34,10 +34,13 @@ interface RestaurantDao {
     @Query("UPDATE dishes SET isInCart=1 WHERE id=:id")
     fun insertItemToCart(id: Int?)
 
+    @Query("UPDATE dishes SET amount=:amount WHERE id=:id")
+    fun updateDishAmount(id: Int?, amount: Int)
+
     @Query("SELECT * FROM dishes WHERE isInCart=1")
     fun getBasketItems(): List<Dish>?
 
-    @Query("DELETE FROM dishes WHERE isInCart=1")
+    @Query("UPDATE dishes SET isInCart=0 WHERE isInCart=1")
     fun clearBasket()
 }
 

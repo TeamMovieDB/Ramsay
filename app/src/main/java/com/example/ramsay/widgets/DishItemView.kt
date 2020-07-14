@@ -12,6 +12,7 @@ import com.example.ramsay.model.Dish
 
 interface AddToCartClickListener {
     fun addToCart(item: Dish?)
+    fun updateAmount(item: Dish?, amount: Int)
 }
 
 class DishItemView : CardView {
@@ -49,19 +50,23 @@ class DishItemView : CardView {
     }
 
     private fun setListeners() {
-        var amount = Integer.parseInt(tvAmount.text.toString())
 
         ivAdd.setOnClickListener {
+            var amount = Integer.parseInt(tvAmount.text.toString())
             amount++
+            addToCartClick?.updateAmount(item, amount)
             if (amount == 1) {
                 addToCartClick?.addToCart(item)
             }
             tvAmount.text = (amount).toString()
             tvAmount.visibility = View.VISIBLE
             ivRemove.visibility = View.VISIBLE
+
         }
 
         ivRemove.setOnClickListener {
+            var amount = Integer.parseInt(tvAmount.text.toString())
+
             if (amount > 1) {
                 amount--
                 tvAmount.text = (amount).toString()
@@ -70,6 +75,7 @@ class DishItemView : CardView {
                 ivRemove.visibility = View.GONE
                 amount = 0
             }
+            addToCartClick?.updateAmount(item, amount)
         }
     }
 

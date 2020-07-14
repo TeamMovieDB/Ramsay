@@ -11,6 +11,7 @@ interface RestaurantRepository {
     fun getRestaurantDetails(id: Int): Restaurant
     fun getMenu(restaurantId: Int): List<Dish>
     fun getRestaurants(): List<Restaurant>?
+    fun updateDishAmount(item: Dish, amount: Int)
 
     fun getCartItems(): List<Dish>?
     fun addToCart(id: Int?)
@@ -52,5 +53,9 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
 
     override fun addToCart(id: Int?) {
         restaurantDao.insertItemToCart(id)
+    }
+
+    override fun updateDishAmount(item: Dish, amount: Int) {
+        restaurantDao.updateDishAmount(item.id, amount)
     }
 }

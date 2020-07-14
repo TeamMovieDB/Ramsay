@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ramsay.model.Dish
+import com.example.ramsay.widgets.AddToCartClickListener
 import com.example.ramsay.widgets.DishInCartItemView
 
 class BasketAdapter(
@@ -38,6 +39,11 @@ class BasketAdapter(
         items?.size?.minus(1)?.let { notifyItemInserted(it) }
     }
 
+    fun removeItems() {
+        items?.clear()
+        notifyDataSetChanged()
+    }
+
     inner class CartItemsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val cartItemView: DishInCartItemView = view as DishInCartItemView
@@ -51,10 +57,21 @@ class BasketAdapter(
                 }
             }
 
+            val addToCartClickListener: AddToCartClickListener = object :
+                AddToCartClickListener {
+                override fun addToCart(item: Dish?) {}
+                override fun updateAmount(item: Dish?, amount: Int) {
+                    if (item != null) {
+                        itemClickListener?.updateItemAmount(item, amount)
+                    }
+                }
+            }
+            cartItemView.setAddToCartListener(addToCartClickListener)
         }
     }
 
     interface ItemClick {
         fun itemClick(position: Int, item: Dish)
+        fun updateItemAmount(item: Dish?, amount: Int)
     }
 }
