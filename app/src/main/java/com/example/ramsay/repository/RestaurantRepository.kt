@@ -14,8 +14,6 @@ interface RestaurantRepository {
     fun getMenu(restaurantId: Int): List<Dish>
     fun getRestaurants(): List<Restaurant>?
     fun deleteAll()
-    fun getCustomer(): Customer
-    fun setCustomer():Customer
 }
 
 class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : RestaurantRepository {
@@ -47,11 +45,4 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
         restaurantDao.deleteAll()
     }
 
-    override fun getCustomer(): Customer {
-        TODO("Not yet implemented")
-    }
-
-    override fun setCustomer(): Customer {
-        TODO("Not yet implemented")
-    }
 }
