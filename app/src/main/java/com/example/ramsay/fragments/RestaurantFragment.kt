@@ -117,7 +117,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     }
 
     private fun setTag(tag: String?): TextView {
-        val textView = TextView(context)ц
+        val textView = TextView(context)
         textView.text = tag
         textView.textSize = 12.0f
         return textView
@@ -161,7 +161,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     }
 
     private fun getRestaurants() {
-        restaurantViewModel.liveData.observe(this, Observer { result ->
+        restaurantViewModel.liveData.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is RestaurantViewModel.State.DBfilled -> {
                     restaurantViewModel.getRestaurants()
