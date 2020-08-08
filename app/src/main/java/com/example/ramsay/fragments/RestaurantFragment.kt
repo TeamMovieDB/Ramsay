@@ -1,18 +1,11 @@
 package com.example.ramsay.fragments
 
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,16 +18,13 @@ import com.example.ramsay.ui.CollapsingToolbarBottom
 import com.example.ramsay.ui.RestaurantsAdapter
 import com.example.ramsay.utils.AppBarStateChangedListener
 import com.example.ramsay.utils.BUNDLE_KEY
-import com.example.ramsay.utils.SharedPreferencesConfig
 import com.example.ramsay.utils.State
 import com.example.ramsay.view_model.RestaurantViewModel
-import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
-import java.util.ArrayList
+import java.io.Serializable
 
 class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
 
@@ -46,14 +36,8 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var progressBar: ProgressBar
-    private var bottomSheetDialog: BottomSheetFragment? = null
-    private lateinit var listOfTags: ArrayList<TextView>
-    private lateinit var llBranches: LinearLayout
-    private lateinit var flexboxLayout: FlexboxLayout
-    private lateinit var nestedScrollView: NestedScrollView
-    private lateinit var bundle: Bundle
 
-    private lateinit var sharedPreferencesConfig: SharedPreferencesConfig
+
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             when (newState) {
@@ -88,7 +72,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         getRestaurants()
         setAdapter()
         setToolbarSettings()
-        settingFakeUserData()
+        setFakeUserData()
     }
 
     override fun onResume() {
@@ -110,18 +94,6 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
             ?.addToBackStack(null)?.commit()
     }
 
-    private fun setDataToBottomSheet() {
-        for (i in listOfTags) {
-            llBranches.addView(i)
-        }
-    }
-
-    private fun setTag(tag: String?): TextView {
-        val textView = TextView(context)
-        textView.text = tag
-        textView.textSize = 12.0f
-        return textView
-    }
 
     private fun setAdapter() {
         recyclerViewAdapter.setItems(restaurantList)
@@ -135,9 +107,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         collapsingToolbarBottom = view.findViewById(R.id.collapsingToolbarBottom)
         floatingButton = view.findViewById(R.id.floatingActionButton)
         progressBar = view.findViewById(R.id.restaurantsProgressBar)
-        bundle = Bundle()
-        bottomSheetDialog = BottomSheetFragment(context)
-        sharedPreferencesConfig = SharedPreferencesConfig(context)
+
         appBarLayout.addOnOffsetChangedListener(object : AppBarStateChangedListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
                 if (state == State.EXPANDED) {
@@ -151,13 +121,12 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
             scrollingToTop()
         }
         collapsingToolbarBottom.ivAvatar.setOnClickListener {
-            callingBottomSheetDialog()
-
+            callBottomSheetFragment()
         }
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         restaurantList = mutableListOf()
-        listOfTags = arrayListOf()
+
     }
 
     private fun getRestaurants() {
@@ -169,10 +138,9 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
                 is RestaurantViewModel.State.RestaurantList -> {
                     result.restaurantResult?.let {
                         restaurantList.addAll(it)
-                        listOfTags.addAll(setTagsList(restaurantList))
+                        //  listOfTags.addAll(setTagsList(restaurantList))
                     }
                     recyclerViewAdapter.notifyDataSetChanged()
-                    bundle.putSerializable("tags", listOfTags)
                 }
                 is RestaurantViewModel.State.HideLoading -> {
                     progressBar.visibility = View.GONE
@@ -181,13 +149,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         })
     }
 
-    private fun setTagsList(restaurantList: List<Restaurant>): List<TextView>{
-        var list: MutableList<TextView> = mutableListOf()
-        for (i in restaurantList){
-            list.add(setTag(i.name))
-        }
-        return list
-    }
+
     private fun setToolbarSettings() {
         toolbar.setCollapsedTitleTextAppearance(R.style.collapsedToolbarStyle)
         toolbar.setExpandedTitleTextAppearance(R.style.expandedToolbarStyle)
@@ -206,7 +168,7 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         layoutManager.startSmoothScroll(smoothScroller)
     }
 
-    private fun settingFakeUserData() {
+    private fun setFakeUserData() {
         val customer = Customer(
             12,
             "Alikhan Baisholanov",
@@ -221,7 +183,19 @@ class RestaurantFragment : Fragment(), RestaurantsAdapter.RestaurantItemClick {
         collapsingToolbarBottom.setUserHalfData(customer)
     }
 
-    private fun callingBottomSheetDialog() {
-        bottomSheetDialog?.show(requireActivity().supportFragmentManager, "BottomSheet")
+    private fun callBottomSheetFragment() {
+        //set list of tags
+        //set bundle
+        //open fragment
+        val listOfTags: MutableList<String> = mutableListOf()
+        for (restaurant in restaurantList) {
+            listOfTags.add(restaurant.name)
+        }
+        val bundle = Bundle()
+        bundle.putSerializable("tags", listOfTags as Serializable)
+        val bottomSheetFragment = BottomSheetFragment(context)
+        bottomSheetFragment.arguments = bundle
+
+        bottomSheetFragment.show(requireActivity().supportFragmentManager, "BottomSheet")
     }
 }
