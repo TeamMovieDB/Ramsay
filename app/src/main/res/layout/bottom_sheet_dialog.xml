@@ -3,90 +3,114 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0.7dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="22dp"
-        android:background="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFaq" />
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvAcccount"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvHead"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="@string/account"
-        android:textColor="#000000"
-        android:textSize="32sp"
+        android:layout_marginTop="24dp"
+        android:text="Branches and groups"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cdAvatar"
-        android:layout_width="137dp"
-        android:layout_height="137dp"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="243dp"
         android:layout_marginTop="24dp"
-        app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAcccount">
+        app:layout_constraintTop_toBottomOf="@+id/tvHead">
 
-        <ImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="137dp"
-            android:layout_height="137dp"
-            android:scaleType="centerCrop"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            app:srcCompat="@drawable/avatar" />
-    </androidx.cardview.widget.CardView>
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvMyInfo"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:elevation="1dp">
+
+                    <TextView
+                        android:id="@+id/tvBranches"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Branch"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvGroups"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="Group"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="@+id/tvBranches"
+                        app:layout_constraintTop_toBottomOf="@+id/tvBranches" />
+
+                    <LinearLayout
+                        android:id="@+id/llBranches"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="44dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvBranches"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tvBranches"
+                        app:layout_constraintTop_toTopOf="@+id/tvBranches" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flexBoxLayoutGroups"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="44dp"
+                        android:layout_marginBottom="16dp"
+                        android:fadingEdge="vertical"
+                        android:orientation="horizontal"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tvGroups"
+                        app:layout_constraintTop_toTopOf="@+id/tvGroups">
+
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <ImageView
+        android:id="@+id/ivClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="My information"
-        android:textColor="#000000"
-        android:textSize="22sp"
+        android:layout_marginEnd="24dp"
+
+        android:elevation="2dp"
+        android:padding="@dimen/margin_4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cdAvatar" />
+        app:layout_constraintTop_toTopOf="@+id/tvHead" />
 
-    <TextView
-        android:id="@+id/tvFaq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="F.A.Q"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="@+id/tvMyInfo"
-        app:layout_constraintStart_toStartOf="@+id/tvMyInfo"
-        app:layout_constraintTop_toBottomOf="@+id/tvMyInfo" />
-
-    <TextView
-        android:id="@+id/tvLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="Log out"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import com.example.ramsay.model.Customer
 
 @Dao
 interface CustomerDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCustomer(customer: Customer)
 

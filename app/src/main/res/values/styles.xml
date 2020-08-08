@@ -31,6 +31,10 @@
     </style>
 
     <style name="BottomSheetStyle" parent="Theme.Design.BottomSheetDialog">
-        <item name="android:elevation">0dp</item>
+        <item name="bottomSheetStyle">@style/ButtomSheetModal</item>
+    </style>
+
+    <style name="ButtomSheetModal" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

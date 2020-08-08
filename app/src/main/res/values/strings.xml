@@ -13,5 +13,7 @@
     <string name="f_a_q">F.A.Q</string>
     <string name="my_information">My information</string>
     <string name="name_surname">%1$s %2$s</string>
+    <string name="shared_preferences">shared preferences</string>
+    <string name="tags">tags</string>
 </resources>
 

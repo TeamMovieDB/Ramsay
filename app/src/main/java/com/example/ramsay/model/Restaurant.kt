@@ -1,7 +1,10 @@
 package com.example.ramsay.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 @Entity(tableName = "restaurant")
 data class Restaurant(
@@ -15,4 +18,4 @@ data class Restaurant(
     val likeCount: String,
     val timeCount: String,
     val averageCost: String
-)
+): Serializable
